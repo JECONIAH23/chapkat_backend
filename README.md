@@ -495,3 +495,14 @@ For any issues or questions, please contact the development team through the sup
 
 tendojeconiahcaleb@gmail.com
 +256 758 364 995
+
+## External Service Configuration
+
+### Outbound IP Addresses
+When using external services (OpenRouter, Sunbird.ai), please whitelist these IP addresses:
+
+- 100.20.92.101
+- 44.225.181.72
+- 44.227.217.144
+
+These IPs are used by the Render service when making external requests. Make sure to whitelist them in your external service provider's security settings.
