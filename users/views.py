@@ -78,8 +78,10 @@ def login_view(request):
 @permission_classes([IsAuthenticated])
 @parser_classes([MultiPartParser])
 def audio_process_view(request):
-    # language = request.data.get("language")
-    # audio_file = request.FILES.get("audio")
+    # Rate limiting
+    if request.user.audiouploads.count() >= 100:  # Limit to 100 uploads per user
+        return Response({"error": "Maximum number of audio uploads reached."},
+                        status=status.HTTP_429_TOO_MANY_REQUESTS)
 
     audio_file = request.FILES.get("audio")
     language = request.data.get("language")
@@ -89,19 +91,19 @@ def audio_process_view(request):
         return Response({"error": "Please provide both 'language' and 'audio' file."},
                         status=status.HTTP_400_BAD_REQUEST)
 
+    # File size validation
+    if audio_file.size > 10 * 1024 * 1024:  # 10MB limit
+        return Response({"error": "Audio file is too large (max 10MB)."},
+                        status=status.HTTP_400_BAD_REQUEST)
+
     # Save the audio file to the DB
-    audio_record = AudioUpload.objects.create(
+    audio_upload = AudioUpload.objects.create(
         user=user,
         audio_file=audio_file,
         language=language
     )
     
-    # Sunbird STT API
-    stt_url = "https://api.sunbird.ai/tasks/stt"
-    stt_headers = {
-        "accept": "application/json",
-        "Authorization": f"Bearer {os.getenv('AUTH_TOKEN')}",
-    }
+    
 
     stt_data = {
         "language": language,

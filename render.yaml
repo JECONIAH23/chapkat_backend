@@ -19,3 +19,7 @@ services:
     name: chapkat-db
     provider: postgres
     plan: free
+    databaseUrl: postgresql://admin:YOfhusiXobgvhBrpzgju5MwVF0voqJGY@dpg-d13k4fndiees73am5mlg-a.oregon-postgres.render.com/chapkat
+    env:
+      - key: DATABASE_URL
+        value: postgresql://admin:YOfhusiXobgvhBrpzgju5MwVF0voqJGY@dpg-d13k4fndiees73am5mlg-a.oregon-postgres.render.com/chapkat

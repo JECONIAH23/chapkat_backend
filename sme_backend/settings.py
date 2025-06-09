@@ -31,7 +31,12 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-2_#ns4&+u=@4ylw&u&hs=9iu(-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', os.getenv('ALLOWED_HOST', '')]
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    os.getenv('ALLOWED_HOST', ''),
+    os.getenv('RENDER_EXTERNAL_HOSTNAME', '')  # For Render deployment
+]
 
 
 # Application definition
@@ -84,11 +89,16 @@ WSGI_APPLICATION = 'sme_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('PGDATABASE'),
-        'USER': os.getenv('PGUSER'),
-        'PASSWORD': os.getenv('PGPASSWORD'),
-        'HOST': os.getenv('PGHOST'),
-        'PORT': os.getenv('PGPORT'),
+        'NAME': 'chapkat',
+        'USER': 'admin',
+        'PASSWORD': 'YOfhusiXobgvhBrpzgju5MwVF0voqJGY',
+        'HOST': 'dpg-d13k4fndiees73am5mlg-a.oregon-postgres.render.com',
+        'PORT': '5432',
+        'CONN_MAX_AGE': 600,
+        'OPTIONS': {
+            'sslmode': 'require',
+            'options': '-c statement_timeout=30000'
+        }
     }
 }
 
