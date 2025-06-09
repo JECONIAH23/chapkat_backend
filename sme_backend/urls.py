@@ -19,6 +19,7 @@ from django.urls import path, include
 from sme_backend import views
 
 urlpatterns = [
+    path('health/', views.health_check, name='health_check'),
     path('admin/', admin.site.urls),
     path('api/', include('users.urls')),
     path('health/', views.health_check, name='health_check'),
