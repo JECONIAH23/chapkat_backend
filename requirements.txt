@@ -1,0 +1,15 @@
+asgiref==3.8.1
+certifi==2025.4.26
+charset-normalizer==3.4.2
+Django==5.2.1
+djangorestframework==3.16.0
+djangorestframework_simplejwt==5.5.0
+gunicorn==23.0.0
+idna==3.10
+packaging==25.0
+psycopg2-binary==2.9.9
+PyJWT==2.9.0
+python-dotenv==1.1.0
+requests==2.32.3
+sqlparse==0.5.3
+urllib3==2.4.0

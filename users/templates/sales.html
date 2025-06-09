@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ user.username }}'s Sales Records</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background-color: #f0f0f0; }
+    </style>
+</head>
+<body>
+    {% if error %}
+        <h2>{{ error }}</h2>
+    {% else %}
+        <h2>Sales Records for {{ user.username }}</h2>
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+                <th>Type</th>
+                <th>Date</th>
+            </tr>
+            {% for rec in records %}
+            <tr>
+                <td>{{ rec.product_name }}</td>
+                <td>{{ rec.quantity }}</td>
+                <td>{{ rec.unit_price }}</td>
+                <td>{{ rec.total_price }}</td>
+                <td>{{ rec.transaction_type }}</td>
+                <td>{{ rec.created_at|date:"Y-m-d H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6">No records found.</td></tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>

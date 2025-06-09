@@ -1,0 +1,44 @@
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.db import models
+
+class SMEUserManager(BaseUserManager):
+    def create_user(self, username, email, pin, **extra_fields):
+        if not username:
+            raise ValueError('Username is required')
+        if not pin:
+            raise ValueError('PIN is required')
+        email = self.normalize_email(email)
+        user = self.model(username=username, email=email, **extra_fields)
+        user.set_password(pin)  # sets encrypted PIN
+        user.save()
+        return user
+
+    def create_superuser(self, username, email, pin, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(username, email, pin, **extra_fields)
+
+class SMEUser(AbstractBaseUser, PermissionsMixin):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=15, unique=True)
+    username = models.CharField(max_length=100, unique=True)
+    email = models.EmailField(unique=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = SMEUserManager()
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email', 'pin']
+
+    def __str__(self):
+        return self.username
+
+class VoiceTextEntry(models.Model):
+    user = models.ForeignKey(SMEUser, on_delete=models.CASCADE, related_name='voice_entries')
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username}: {self.text[:30]}..."
