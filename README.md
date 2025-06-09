@@ -492,3 +492,6 @@ try {
 ## Support
 
 For any issues or questions, please contact the development team through the support channels provided.
+
+tendojeconiahcaleb@gmail.com
++256 758 364 995
