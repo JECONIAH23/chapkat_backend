@@ -18,6 +18,10 @@ load_dotenv()
 # OpenRouter API key
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
+# Sunbird API configuration
+SUNBIRD_API_KEY = os.getenv("SUNBIRD_API_KEY")
+SUNBIRD_API_URL = "https://api.sunbird.ai/"  # Default URL, can be overridden in environment
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
