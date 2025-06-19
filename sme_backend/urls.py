@@ -16,9 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from sme_backend import views
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('voice/', include('voice_processing.urls')),
     path('health/', views.health_check, name='health_check'),
     path('admin/', admin.site.urls),
     path('api/', include('users.urls')),

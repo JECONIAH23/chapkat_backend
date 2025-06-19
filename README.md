@@ -2,6 +2,39 @@
 
 This document provides detailed instructions for integrating the Sme Backend API with your Flutter application.
 
+## Local Development Setup
+
+1. Create a `.env` file in the project root with the following content:
+```env
+SECRET_KEY=django-insecure-your_local_secret_key_here
+DEBUG=True
+ALLOWED_HOST=localhost
+
+# Optional: Database settings (defaults to SQLite)
+DATABASE_URL=sqlite:///db.sqlite3
+
+# Optional: External API Keys
+OPENROUTER_API_KEY=your_openrouter_api_key_here
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Set up the database:
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+4. Run the development server:
+```bash
+python manage.py runserver
+```
+
+The API will be available at `http://localhost:8000`.
+
 ## API Endpoints
 
 ### Authentication
@@ -492,3 +525,5 @@ try {
 ## Support
 
 For any issues or questions, please contact the development team through the support channels provided.
+
+localhost:8000
